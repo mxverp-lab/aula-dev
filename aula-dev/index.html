@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mxverp · Herramientas gratuitas para estudiantes de programación</title>
+<meta name="description" content="Herramientas gratuitas de programación: conversor de bases numéricas, probador de expresiones regulares, formateador JSON, comandos Git y generador de contraseñas. Incluye guías prácticas para aprender.">
+<meta name="theme-color" content="#f4f6fb">
+<meta name="robots" content="index,follow">
+<style>
+:root{--bg:#f4f6fb;--surface:#fff;--ink:#14213d;--muted:#55617a;--line:#d5dbe8;--accent:#2f5bff;--accent-ink:#fff;--mark:#ffd23f;--ok:#0f7b4b;--err:#b3261e;--code:#eef1f8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1424;--surface:#161e33;--ink:#e8ecf8;--muted:#9aa6c4;--line:#2a3555;--accent:#7c9bff;--accent-ink:#0e1424;--mark:#ffd23f;--ok:#4cd694;--err:#ff8a80;--code:#0e1424}}
+:root[data-theme="dark"]{--bg:#0e1424;--surface:#161e33;--ink:#e8ecf8;--muted:#9aa6c4;--line:#2a3555;--accent:#7c9bff;--accent-ink:#0e1424;--ok:#4cd694;--err:#ff8a80;--code:#0e1424}
+html{scroll-padding-top:env(safe-area-inset-top,0px);color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:16px 0}
+.logo{font:700 22px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:-.5px}
+.logo b{background:var(--mark);color:#14213d;padding:2px 6px;border-radius:4px;margin-left:2px}
+.hero{padding:28px 0 20px}
+.hero h1{font-size:clamp(28px,6vw,44px);line-height:1.12;margin:0 0 12px;max-width:18em;letter-spacing:-.02em}
+.hero p{color:var(--muted);max-width:34em;margin:0}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:14px 0 10px;scrollbar-width:thin}
+.tabs button{flex:none;font:600 14px system-ui;padding:9px 14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;min-height:260px}
+.panel[hidden]{display:none}
+.panel h2{margin:0 0 4px;font-size:21px}
+.panel>p{margin:0 0 16px;color:var(--muted)}
+label{display:block;font-weight:600;font-size:14px;margin:12px 0 4px}
+input,textarea,select{width:100%;font:15px ui-monospace,Menlo,Consolas,monospace;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--code);color:var(--ink)}
+textarea{min-height:120px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+.btn{font:600 15px system-ui;padding:10px 16px;border:0;border-radius:8px;background:var(--accent);color:var(--accent-ink);cursor:pointer;margin:12px 8px 0 0}
+.btn.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.out{font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--code);border-radius:8px;padding:12px;margin-top:12px;white-space:pre-wrap;word-break:break-word;overflow-x:auto}
+.ok{color:var(--ok)}.err{color:var(--err)}
+mark{background:var(--mark);color:#14213d;border-radius:3px;padding:0 1px}
+.git-item{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.git-item code{font:14px ui-monospace,Menlo,monospace;background:var(--code);padding:2px 6px;border-radius:5px;white-space:nowrap}
+.git-item span{color:var(--muted);text-align:right;font-size:14px}
+.ad{margin:22px 0;min-height:90px;border:1px dashed var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px}
+section.info{padding:28px 0 10px}
+section.info h2{font-size:20px;margin:0 0 8px}
+section.info p,section.info li{color:var(--muted);max-width:42em}
+section.info h3{font-size:17px;margin:18px 0 6px}
+section.info a{color:var(--accent)}
+.legal{border-top:1px solid var(--line);margin-top:24px;padding-top:18px}
+.ad-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center}
+.ad{flex-direction:column;gap:5px}
+.note{font-size:13px;color:var(--muted)}
+footer{border-top:1px solid var(--line);margin-top:30px;padding:20px 0 30px;color:var(--muted);font-size:14px}
+footer a{color:var(--accent)}
+.themebtn{background:none;border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--ink);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="logo">Aula<b>Dev</b></div>
+  <button class="themebtn" id="theme" aria-label="Cambiar tema claro u oscuro">Tema</button>
+</header>
+
+<section class="hero">
+  <h1>Herramientas gratuitas para estudiantes de programación</h1>
+  <p>Convierte bases numéricas, prueba expresiones regulares, formatea JSON y consulta comandos de Git sin registrarte. Todo funciona en tu navegador y no enviamos tus datos a ningún servidor.</p>
+</section>
+
+<nav class="tabs" role="tablist" aria-label="Herramientas">
+  <button role="tab" data-t="bases" aria-selected="true">Bases numéricas</button>
+  <button role="tab" data-t="regex" aria-selected="false">Regex</button>
+  <button role="tab" data-t="json" aria-selected="false">JSON</button>
+  <button role="tab" data-t="git" aria-selected="false">Chuleta Git</button>
+  <button role="tab" data-t="pass" aria-selected="false">Contraseñas</button>
+</nav>
+
+<!-- Aquí irá el primer bloque de AdSense cuando te aprueben la cuenta -->
+<main>
+<div class="panel" id="bases" role="tabpanel">
+  <h2>Conversor de bases numéricas</h2>
+  <p>Escribe un número en cualquier campo y se actualizan los demás.</p>
+  <div class="row">
+    <div><label for="b10">Decimal</label><input id="b10" inputmode="numeric" autocomplete="off"></div>
+    <div><label for="b2">Binario</label><input id="b2" autocomplete="off"></div>
+    <div><label for="b16">Hexadecimal</label><input id="b16" autocomplete="off"></div>
+    <div><label for="b8">Octal</label><input id="b8" autocomplete="off"></div>
+  </div>
+  <div class="out" id="bmsg">Prueba con 255, 11111111 o ff.</div>
+</div>
+
+<div class="panel" id="regex" role="tabpanel" hidden>
+  <h2>Probador de expresiones regulares</h2>
+  <p>Las coincidencias se resaltan mientras escribes.</p>
+  <div class="row">
+    <div><label for="rx">Patrón</label><input id="rx" value="\b[\w.]+@\w+\.\w+\b" autocomplete="off" spellcheck="false"></div>
+    <div><label for="rf">Flags</label><input id="rf" value="g" autocomplete="off" spellcheck="false"></div>
+  </div>
+  <label for="rt">Texto de prueba</label>
+  <textarea id="rt">Escríbeme a ana@correo.es o a luis.perez@mail.com antes del viernes.</textarea>
+  <div class="out" id="rout"></div>
+</div>
+
+<div class="panel" id="json" role="tabpanel" hidden>
+  <h2>Validador y formateador de JSON</h2>
+  <p>Pega tu JSON para comprobar si es válido, embellecerlo o minimizarlo.</p>
+  <label for="ji">JSON</label>
+  <textarea id="ji">{"alumno":"Marta","modulos":["Programación","Bases de datos"],"nota":8.5}</textarea>
+  <button class="btn" id="jf">Formatear</button><button class="btn alt" id="jm">Minimizar</button><button class="btn alt" id="jc">Copiar resultado</button>
+  <div class="out" id="jout" aria-live="polite"></div>
+</div>
+
+<div class="panel" id="git" role="tabpanel" hidden>
+  <h2>Chuleta de comandos Git</h2>
+  <p>Filtra por lo que quieres hacer.</p>
+  <label for="gq">Buscar</label>
+  <input id="gq" placeholder="Por ejemplo: deshacer, rama, subir" autocomplete="off">
+  <div id="gl"></div>
+</div>
+
+<div class="panel" id="pass" role="tabpanel" hidden>
+  <h2>Generador de contraseñas</h2>
+  <p>Se generan con el generador criptográfico de tu navegador y no se guardan.</p>
+  <label for="pl">Longitud: <span id="pln">16</span></label>
+  <input id="pl" type="range" min="8" max="64" value="16">
+  <label><input type="checkbox" id="pn" checked style="width:auto"> Incluir números</label>
+  <label><input type="checkbox" id="ps" checked style="width:auto"> Incluir símbolos</label>
+  <button class="btn" id="pg">Generar contraseña</button><button class="btn alt" id="pc">Copiar</button>
+  <div class="out" id="pout" aria-live="polite"></div>
+</div>
+</main>
+
+<div class="ad" aria-label="Espacio reservado para publicidad">
+  <span class="ad-label">Publicidad</span>
+  <span>Espacio publicitario disponible cuando el sitio esté aprobado</span>
+</div>
+
+<section class="info" id="guias">
+  <h2>Guías rápidas de programación</h2>
+  <p>Mxverp reúne herramientas gratuitas para practicar conceptos habituales de programación. Las utilidades funcionan en tu navegador; evita pegar datos personales, claves reales o información confidencial en cualquier herramienta online.</p>
+
+  <h3>Cómo convertir números entre bases</h3>
+  <p>El sistema decimal utiliza diez símbolos (0–9), el binario utiliza dos (0 y 1), el octal utiliza ocho y el hexadecimal utiliza dieciséis (0–9 y A–F). Para convertir un número, introdúcelo en el campo correspondiente. Por ejemplo, el decimal 255 equivale a 11111111 en binario, 377 en octal y FF en hexadecimal. En informática, el binario ayuda a representar datos y el hexadecimal permite leer valores binarios de forma más compacta.</p>
+
+  <h3>Qué es una expresión regular (regex)</h3>
+  <p>Una expresión regular describe un patrón de texto. Puede servir para localizar palabras, comprobar formatos sencillos o extraer fragmentos de una cadena. En el probador de arriba, escribe el patrón, configura sus flags y añade un texto de ejemplo. La coincidencia con un patrón no garantiza por sí sola que un dato sea correcto en todos los contextos; por ejemplo, validar direcciones de correo de forma completa requiere más que una regex sencilla.</p>
+
+  <h3>Cómo validar y formatear JSON</h3>
+  <p>JSON es un formato de intercambio de datos que utiliza objetos, listas, cadenas, números, valores booleanos y null. Las claves y las cadenas deben ir entre comillas dobles. Usa el formateador para mostrar la estructura con sangría y el minimizador para eliminar espacios innecesarios. Si aparece un error, revisa las comas, las comillas y los corchetes o llaves que abren y cierran cada estructura.</p>
+
+  <h3>Comandos Git básicos</h3>
+  <p>Git permite registrar y revisar cambios en un proyecto. <code>git status</code> muestra el estado de los archivos; <code>git add</code> prepara cambios; <code>git commit</code> crea un registro local; y <code>git push</code> envía commits a un repositorio remoto configurado. Antes de usar comandos que reescriben o descartan cambios, comprueba el estado del repositorio y asegúrate de que no vas a perder trabajo.</p>
+
+  <h3>Buenas prácticas para crear contraseñas</h3>
+  <p>Una contraseña larga y única para cada servicio reduce el riesgo de que una filtración afecte a otras cuentas. Este generador crea una cadena aleatoria en el navegador. No reutilices la contraseña generada en varios sitios y considera utilizar un gestor de contraseñas de confianza. No compartas contraseñas ni las incluyas en ejemplos públicos.</p>
+
+  <h2 style="margin-top:24px">Sobre Mxverp</h2>
+  <p>Mxverp es un proyecto educativo independiente pensado para estudiantes de DAW, DAM y personas que comienzan a programar. Las herramientas se ofrecen gratuitamente y su objetivo es ayudar a practicar, comprender conceptos y resolver tareas cotidianas. El contenido se irá revisando y ampliando para mantenerlo claro y útil.</p>
+
+  <div class="legal" id="privacidad">
+    <h2>Política de privacidad</h2>
+    <p><strong>Responsable:</strong> Mxverp es el nombre de marca del proyecto. Contacto: <a href="mailto:Mxverp@gmail.com">Mxverp@gmail.com</a>.</p>
+    <p>Las operaciones de las herramientas incluidas en esta página se realizan en el navegador del visitante. Esta versión no incorpora un servidor propio para recibir los textos introducidos en las herramientas. El proveedor de alojamiento y los servicios externos que se incorporen en el futuro podrían tratar datos técnicos necesarios para prestar sus servicios; consulta sus condiciones y documenta aquí los proveedores realmente utilizados.</p>
+    <p>Si se activa Google AdSense u otra herramienta de medición, podrían tratarse identificadores, datos de uso y datos relacionados con anuncios conforme a la configuración elegida y a las políticas aplicables. Actualiza esta política antes de activar dichos servicios e identifica a los proveedores, finalidades, bases jurídicas, plazos de conservación y derechos de las personas usuarias según corresponda.</p>
+    <p>Para consultas relacionadas con la privacidad, puedes escribir a <a href="mailto:Mxverp@gmail.com">Mxverp@gmail.com</a>. Esta política debe adaptarse a los servicios que se activen realmente y a la normativa aplicable.</p>
+  </div>
+
+  <div class="legal" id="cookies">
+    <h2>Política de cookies y publicidad</h2>
+    <p>En esta versión, Mxverp no instala deliberadamente cookies publicitarias propias desde el código de las herramientas. Si se integra AdSense, Google y sus socios pueden utilizar cookies o tecnologías similares para mostrar, limitar, medir o personalizar anuncios, según la configuración y el consentimiento aplicables.</p>
+    <p>Antes de mostrar anuncios a visitantes del Espacio Económico Europeo, Reino Unido o Suiza, configura una plataforma de gestión del consentimiento (CMP) certificada por Google e integrada con el TCF cuando sea exigible. Publica información clara sobre las cookies y ofrece las opciones de consentimiento que correspondan. No añadas un banner ficticio: configura la CMP real desde el servicio elegido.</p>
+    <p>La lista definitiva de cookies, proveedores y periodos debe verificarse cuando el alojamiento, la analítica y la publicidad estén configurados.</p>
+  </div>
+
+  <div class="legal" id="aviso-legal">
+    <h2>Aviso legal</h2>
+    <p><strong>Marca del proyecto:</strong> Mxverp. <strong>Contacto:</strong> <a href="mailto:Mxverp@gmail.com">Mxverp@gmail.com</a>.</p><p>Por privacidad, esta página no muestra una dirección particular. Antes de publicar, comprueba si la normativa aplicable a tu actividad exige incluir otros datos identificativos del titular; los datos que solicite Google en su cuenta deben completarse directamente en Google.</p>
+    <p>Las herramientas se ofrecen con fines educativos y pueden contener errores. Comprueba los resultados antes de utilizarlos en trabajos importantes o sistemas de producción. Git, JSON y las demás tecnologías mencionadas pertenecen a sus respectivos titulares; Mxverp es un proyecto independiente y no implica afiliación con ellos.</p>
+  </div>
+</section>
+
+<footer>© 2026 Mxverp · <a href="#privacidad">Privacidad</a> · <a href="#cookies">Cookies</a> · <a href="#aviso-legal">Aviso legal</a> · <a href="mailto:Mxverp@gmail.com">Contacto</a></footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+// Tabs
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>show(b.dataset.t));
+function show(t){
+  document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===t));
+  document.querySelectorAll('.panel').forEach(p=>p.hidden=p.id!==t);
+  try{history.replaceState(null,'','#'+t)}catch(e){}
+}
+const h=location.hash.slice(1);if($(h)&&$(h).classList.contains('panel'))show(h);
+// Tema
+$('theme').onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=dark?'light':'dark'};
+// Bases
+const bs={b10:10,b2:2,b16:16,b8:8},valid={10:/^[0-9]+$/,2:/^[01]+$/,16:/^[0-9a-f]+$/i,8:/^[0-7]+$/};
+Object.keys(bs).forEach(id=>$(id).oninput=()=>{
+  const v=$(id).value.trim(),base=bs[id];
+  if(!v){Object.keys(bs).forEach(k=>$(k).value='');$('bmsg').textContent='';return}
+  if(!valid[base].test(v)){$('bmsg').innerHTML='<span class="err">Carácter no válido para base '+base+'.</span>';return}
+  const n=BigInt(base===10?v:base===16?'0x'+v:base===2?'0b'+v:'0o'+v);
+  Object.keys(bs).forEach(k=>{if(k!==id)$(k).value=n.toString(bs[k]).toUpperCase()});
+  $('bmsg').innerHTML='<span class="ok">Valor: '+n.toString()+' ('+n.toString(2).length+' bits)</span>';
+});
+// Regex
+function rx(){
+  const o=$('rout'),t=$('rt').value;
+  try{
+    let f=$('rf').value;if(!f.includes('g'))f+='g';
+    const re=new RegExp($('rx').value,f),ms=[...t.matchAll(re)];
+    const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+    let html='',i=0;
+    for(const m of ms){if(m[0]==='')continue;html+=esc(t.slice(i,m.index))+'<mark>'+esc(m[0])+'</mark>';i=m.index+m[0].length}
+    html+=esc(t.slice(i));
+    o.innerHTML='<span class="ok">'+ms.length+' coincidencia(s)</span>\n\n'+html;
+  }catch(e){o.innerHTML='<span class="err">Patrón no válido: '+e.message.replace(/</g,'&lt;')+'</span>'}
+}
+['rx','rf','rt'].forEach(i=>$(i).oninput=rx);rx();
+// JSON
+let last='';
+function jr(sp){try{const o=JSON.parse($('ji').value);last=JSON.stringify(o,null,sp);$('jout').textContent=last}catch(e){last='';$('jout').innerHTML='<span class="err">JSON no válido: '+e.message.replace(/</g,'&lt;')+'</span>'}}
+$('jf').onclick=()=>jr(2);$('jm').onclick=()=>jr(0);
+$('jc').onclick=async()=>{if(!last)return;try{await navigator.clipboard.writeText(last);$('jout').innerHTML+='\n<span class="ok">Copiado.</span>'}catch(e){$('jout').innerHTML+='\n<span class="err">No se pudo copiar; selecciona el texto a mano.</span>'}};
+// Git
+const G=[['git init','Crear un repositorio nuevo'],['git clone URL','Copiar un repositorio remoto'],['git status','Ver cambios pendientes'],['git add .','Preparar todos los cambios'],['git commit -m "mensaje"','Guardar cambios con mensaje'],['git push','Subir commits al remoto'],['git pull','Traer y fusionar cambios del remoto'],['git branch nombre','Crear una rama'],['git switch nombre','Cambiar de rama'],['git merge nombre','Fusionar una rama en la actual'],['git log --oneline','Historial resumido'],['git restore archivo','Deshacer cambios sin preparar'],['git restore --staged archivo','Quitar archivo de lo preparado'],['git commit --amend','Corregir el último commit'],['git stash','Guardar cambios temporalmente'],['git stash pop','Recuperar cambios guardados'],['git diff','Ver diferencias línea a línea'],['git remote -v','Ver remotos configurados']];
+function gl(){const q=$('gq').value.toLowerCase();const r=G.filter(g=>(g[0]+' '+g[1]).toLowerCase().includes(q));
+  $('gl').innerHTML=r.length?'':'<p>Sin resultados. Prueba con otra palabra, como “rama” o “subir”.</p>';
+  r.forEach(g=>{const d=document.createElement('div');d.className='git-item';const c=document.createElement('code');c.textContent=g[0];const s=document.createElement('span');s.textContent=g[1];d.append(c,s);$('gl').append(d)})}
+$('gq').oninput=gl;gl();
+// Contraseñas
+$('pl').oninput=()=>$('pln').textContent=$('pl').value;
+function pg(){
+  let ch='abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
+  if($('pn').checked)ch+='23456789';if($('ps').checked)ch+='!@#$%&*?-_+=';
+  const n=+$('pl').value,a=new Uint32Array(n);crypto.getRandomValues(a);
+  $('pout').textContent=[...a].map(x=>ch[x%ch.length]).join('');
+}
+$('pg').onclick=pg;pg();
+$('pc').onclick=async()=>{try{await navigator.clipboard.writeText($('pout').textContent)}catch(e){}};
+</script>
+</body>
+</html>
